@@ -1,0 +1,44 @@
+{
+    "sidebar": [
+        {
+            "id": 1,
+            "title": "އިޝްތިހާރު 1",
+            "imageUrl": "https://picsum.photos/300/250",
+            "linkUrl": "https://example.com/ad1",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31",
+            "status": "active"
+        },
+        {
+            "id": 2,
+            "title": "އިޝްތިހާރު 2",
+            "imageUrl": "https://picsum.photos/300/251",
+            "linkUrl": "https://example.com/ad2",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31",
+            "status": "active"
+        }
+    ],
+    "header": [
+        {
+            "id": 3,
+            "title": "ހެޑަރ އިޝްތިހާރު",
+            "imageUrl": "https://picsum.photos/728/90",
+            "linkUrl": "https://example.com/ad3",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31",
+            "status": "active"
+        }
+    ],
+    "content": [
+        {
+            "id": 4,
+            "title": "ކޮންޓެންޓް އިޝްތިހާރު",
+            "imageUrl": "https://picsum.photos/600/200",
+            "linkUrl": "https://example.com/ad4",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31",
+            "status": "active"
+        }
+    ]
+}
