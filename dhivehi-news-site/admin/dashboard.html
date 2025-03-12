@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="dv" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>އެޑްމިން ޑޭޝްބޯޑް - ދިވެހި ނިއުސް</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thaana:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'body': ['Noto Sans Thaana', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-body bg-gray-50">
+    <!-- Admin Header -->
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-gray-900">އެޑްމިން ޑޭޝްބޯޑް</h1>
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-home ml-2"></i>
+                        މައި ސަފްހާ
+                    </a>
+                    <button class="logout-btn text-red-600 hover:text-red-800">
+                        <i class="fas fa-sign-out-alt ml-2"></i>
+                        ލޮގްއައުޓް
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Total News -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
+                            <i class="fas fa-newspaper text-white text-2xl"></i>
+                        </div>
+                        <div class="mr-5">
+                            <div class="text-sm font-medium text-gray-500 truncate">ޖުމްލަ ޚަބަރު</div>
+                            <div class="mt-1 text-3xl font-semibold text-gray-900" id="totalNews">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Ads -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
+                            <i class="fas fa-ad text-white text-2xl"></i>
+                        </div>
+                        <div class="mr-5">
+                            <div class="text-sm font-medium text-gray-500 truncate">އެކްޓިވް އިޝްތިހާރު</div>
+                            <div class="mt-1 text-3xl font-semibold text-gray-900" id="activeAds">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Views -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-purple-500 rounded-md p-3">
+                            <i class="fas fa-eye text-white text-2xl"></i>
+                        </div>
+                        <div class="mr-5">
+                            <div class="text-sm font-medium text-gray-500 truncate">ޕޭޖް ވިއުސް</div>
+                            <div class="mt-1 text-3xl font-semibold text-gray-900" id="pageViews">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white shadow rounded-lg mb-8">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">އަވަސް އެކްޝަންތައް</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <a href="news-manager.html" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100">
+                        <i class="fas fa-plus-circle text-blue-600 text-xl ml-3"></i>
+                        <span>އާ ޚަބަރެއް އިތުރުކުރުން</span>
+                    </a>
+                    <button onclick="showAdsForm()" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 w-full">
+                        <i class="fas fa-ad text-green-600 text-xl ml-3"></i>
+                        <span>އިޝްތިހާރު އިތުރުކުރުން</span>
+                    </button>
+                    <button onclick="showStatistics()" class="flex items-center p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100">
+                        <i class="fas fa-chart-line text-yellow-600 text-xl ml-3"></i>
+                        <span>ސްޓެޓިސްޓިކްސް</span>
+                    </button>
+                    <button onclick="showSettings()" class="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100">
+                        <i class="fas fa-cog text-purple-600 text-xl ml-3"></i>
+                        <span>ސެޓިންގްސް</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div id="statisticsSection" class="bg-white shadow rounded-lg mb-8 hidden">
+            <div class="px-4 py-5 sm:p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-medium text-gray-900">ސްޓެޓިސްޓިކްސް</h3>
+                    <button onclick="hideStatistics()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- News by Category Chart -->
+                    <div>
+                        <h4 class="text-md font-medium text-gray-700 mb-4">ކެޓަގަރީ އަކުން ޚަބަރުތައް</h4>
+                        <canvas id="newsByCategoryChart"></canvas>
+                    </div>
+                    <!-- Daily Views Chart -->
+                    <div>
+                        <h4 class="text-md font-medium text-gray-700 mb-4">ދުވަހުން ދުވަހަށް ވިއުސް</h4>
+                        <canvas id="dailyViewsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settingsSection" class="bg-white shadow rounded-lg mb-8 hidden">
+            <div class="px-4 py-5 sm:p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-medium text-gray-900">ސެޓިންގްސް</h3>
+                    <button onclick="hideSettings()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="settingsForm" class="space-y-6">
+                    <!-- Site Title -->
+                    <div>
+                        <label for="siteTitle" class="block text-sm font-medium text-gray-700 mb-2">ވެބްސައިޓްގެ ނަން</label>
+                        <input type="text" id="siteTitle" name="siteTitle"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <!-- Breaking News Settings -->
+                    <div>
+                        <label for="breakingNewsExpiry" class="block text-sm font-medium text-gray-700 mb-2">އާ ޚަބަރު މުއްދަތު ހަމަވާ ވަގުތު (ގަޑިއިރުން)</label>
+                        <input type="number" id="breakingNewsExpiry" name="breakingNewsExpiry" min="1" max="72"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <!-- Homepage Layout -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">މައި ސަފްހާގެ ލޭއައުޓް</label>
+                        <div class="space-y-2">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="layout" value="grid" class="form-radio">
+                                <span class="mr-2">ގްރިޑް</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="layout" value="list" class="form-radio">
+                                <span class="mr-2">ލިސްޓް</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="flex justify-end">
+                        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            ސޭވްކުރުން
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Ads Form Section -->
+        <div id="adsFormSection" class="bg-white shadow rounded-lg mb-8 hidden">
+            <div class="px-4 py-5 sm:p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-medium text-gray-900">އިޝްތިހާރު އިތުރުކުރުން</h3>
+                    <button onclick="hideAdsForm()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="addAdForm" class="space-y-6">
+                    <!-- Ad Title -->
+                    <div>
+                        <label for="adTitle" class="block text-sm font-medium text-gray-700 mb-2">އިޝްތިހާރުގެ ނަން</label>
+                        <input type="text" id="adTitle" name="adTitle" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <!-- Ad Position -->
+                    <div>
+                        <label for="adPosition" class="block text-sm font-medium text-gray-700 mb-2">އިޝްތިހާރުގެ ޕޮޒިޝަން</label>
+                        <select id="adPosition" name="adPosition" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="sidebar">ސައިޑްބާރ</option>
+                            <option value="header">ހެޑަރ</option>
+                            <option value="footer">ފޫޓަރ</option>
+                            <option value="content">ކޮންޓެންޓް ދޭތެރޭ</option>
+                        </select>
+                    </div>
+
+                    <!-- Ad Image -->
+                    <div>
+                        <label for="adImage" class="block text-sm font-medium text-gray-700 mb-2">އިޝްތިހާރުގެ ފޮޓޯ</label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                            <div class="space-y-1 text-center">
+                                <div class="flex text-sm text-gray-600">
+                                    <label for="adImage" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                        <span>ފޮޓޯއެއް އަޕްލޯޑްކުރުމަށް ފިތާލާ</span>
+                                        <input id="adImage" name="adImage" type="file" class="sr-only" accept="image/*" required>
+                                    </label>
+                                </div>
+                                <p class="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
+                            </div>
+                        </div>
+                        <div id="imagePreview" class="mt-4 hidden">
+                            <img id="previewImg" src="" alt="Preview" class="max-h-48 rounded">
+                        </div>
+                    </div>
+
+                    <!-- Ad Link -->
+                    <div>
+                        <label for="adLink" class="block text-sm font-medium text-gray-700 mb-2">އިޝްތިހާރުގެ ލިންކް</label>
+                        <input type="url" id="adLink" name="adLink" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="https://example.com">
+                    </div>
+
+                    <!-- Start and End Dates -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="startDate" class="block text-sm font-medium text-gray-700 mb-2">ފެށޭ ތާރީޚް</label>
+                            <input type="date" id="startDate" name="startDate" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="endDate" class="block text-sm font-medium text-gray-700 mb-2">ނިމޭ ތާރީޚް</label>
+                            <input type="date" id="endDate" name="endDate" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+
+                    <!-- Active Status -->
+                    <div class="flex items-center">
+                        <input type="checkbox" id="isActive" name="isActive" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="isActive" class="mr-2 block text-sm text-gray-900">އެކްޓިވް އިޝްތިހާރެއްގެ ގޮތުގައި ދެއްކުން</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-end">
+                        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            އިޝްތިހާރު ޝާއިޢުކުރުން
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Active Ads List -->
+        <div class="bg-white shadow rounded-lg mb-8">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">އެކްޓިވް އިޝްތިހާރުތައް</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">އިޝްތިހާރުގެ ނަން</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">ޕޮޒިޝަން</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">ފެށޭ ތާރީޚް</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">ނިމޭ ތާރީޚް</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">ސްޓޭޓަސް</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">އެކްޝަން</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" id="activeAdsList">
+                            <!-- Ads will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">އެންމެ ފަހުގެ ހަރަކާތްތައް</h3>
+                <div class="flow-root">
+                    <ul class="-mb-8" id="recentActivityList">
+                        <!-- Activity items will be dynamically added here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Auth Script -->
+    <script src="../assets/js/auth.js"></script>
+
+    <!-- Dashboard Script -->
+    <script>
+        // Show/Hide Ads Form
+        function showAdsForm() {
+            document.getElementById('adsFormSection').classList.remove('hidden');
+            document.getElementById('statisticsSection').classList.add('hidden');
+            document.getElementById('settingsSection').classList.add('hidden');
+        }
+
+        function hideAdsForm() {
+            document.getElementById('adsFormSection').classList.add('hidden');
+        }
+
+        // Image preview functionality
+        document.getElementById('adImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImg').src = e.target.result;
+                    document.getElementById('imagePreview').classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle ad form submission
+        document.getElementById('addAdForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                title: document.getElementById('adTitle').value,
+                position: document.getElementById('adPosition').value,
+                link: document.getElementById('adLink').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value,
+                isActive: document.getElementById('isActive').checked,
+                image: document.getElementById('previewImg').src,
+                date: new Date().toISOString()
+            };
+
+            // Get existing ads or initialize empty array
+            let ads = JSON.parse(localStorage.getItem('ads') || '[]');
+            
+            // Add new ad to array
+            ads.unshift(formData);
+            
+            // Save back to localStorage
+            localStorage.setItem('ads', JSON.stringify(ads));
+
+            // Reset form
+            e.target.reset();
+            document.getElementById('imagePreview').classList.add('hidden');
+
+            // Refresh ads list
+            displayActiveAds();
+
+            // Show success message
+            alert('އިޝްތިހާރު ކާމިޔާބުކަމާއެކު ޝާއިޢުކުރެވިއްޖެ');
+
+            // Hide form
+            hideAdsForm();
+        });
+
+        // Display active ads
+        function displayActiveAds() {
+            const ads = JSON.parse(localStorage.getItem('ads') || '[]');
+            const tbody = document.getElementById('activeAdsList');
+            tbody.innerHTML = ads.map((item, index) => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.title}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.position}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        ${new Date(item.startDate).toLocaleDateString('dv-MV')}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        ${new Date(item.endDate).toLocaleDateString('dv-MV')}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${item.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}">
+                            ${item.isActive ? 'އެކްޓިވް' : 'އިންއެކްޓިވް'}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button onclick="editAd(${index})" class="text-blue-600 hover:text-blue-900 ml-3">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="deleteAd(${index})" class="text-red-600 hover:text-red-900">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Edit ad
+        function editAd(index) {
+            const ads = JSON.parse(localStorage.getItem('ads') || '[]');
+            const item = ads[index];
+            
+            document.getElementById('adTitle').value = item.title;
+            document.getElementById('adPosition').value = item.position;
+            document.getElementById('adLink').value = item.link;
+            document.getElementById('startDate').value = item.startDate;
+            document.getElementById('endDate').value = item.endDate;
+            document.getElementById('isActive').checked = item.isActive;
+            
+            if (item.image) {
+                document.getElementById('previewImg').src = item.image;
+                document.getElementById('imagePreview').classList.remove('hidden');
+            }
+
+            // Remove the item from array
+            ads.splice(index, 1);
+            localStorage.setItem('ads', JSON.stringify(ads));
+            displayActiveAds();
+
+            // Show form
+            showAdsForm();
+        }
+
+        // Delete ad
+        function deleteAd(index) {
+            if (confirm('މި އިޝްތިހާރު ފޮހެލަން ބޭނުންތޯ؟')) {
+                const ads = JSON.parse(localStorage.getItem('ads') || '[]');
+                ads.splice(index, 1);
+                localStorage.setItem('ads', JSON.stringify(ads));
+                displayActiveAds();
+            }
+        }
+
+        // Initialize statistics
+        function updateStatistics() {
+            const news = JSON.parse(localStorage.getItem('news') || '[]');
+            const ads = JSON.parse(localStorage.getItem('ads') || '[]');
+            const pageViews = parseInt(localStorage.getItem('pageViews') || '0');
+
+            document.getElementById('totalNews').textContent = news.length;
+            document.getElementById('activeAds').textContent = ads.filter(ad => ad.isActive).length;
+            document.getElementById('pageViews').textContent = pageViews;
+        }
+
+        // Initialize charts
+        function initializeCharts() {
+            const news = JSON.parse(localStorage.getItem('news') || '[]');
+            
+            // News by Category Chart
+            const categoryData = {
+                'general': news.filter(item => item.category === 'general').length,
+                'politics': news.filter(item => item.category === 'politics').length,
+                'sports': news.filter(item => item.category === 'sports').length,
+                'business': news.filter(item => item.category === 'business').length,
+                'entertainment': news.filter(item => item.category === 'entertainment').length
+            };
+
+            new Chart(document.getElementById('newsByCategoryChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['އާންމު', 'ސިޔާސީ', 'ކުޅިވަރު', 'ވިޔަފާރި', 'މުނިފޫހިފިލުވުން'],
+                    datasets: [{
+                        data: Object.values(categoryData),
+                        backgroundColor: [
+                            '#3B82F6',
+                            '#EF4444',
+                            '#10B981',
+                            '#F59E0B',
+                            '#8B5CF6'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Daily Views Chart
+            const viewsData = {
+                labels: ['އާދީއްތަ', 'ހޯމަ', 'އަންގާރަ', 'ބުދަ', 'ބުރާސްފަތި', 'ހުކުރު', 'ހޮނިހިރު'],
+                datasets: [{
+                    label: 'ދުވަހުގެ ވިއުސް',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    fill: false,
+                    borderColor: '#3B82F6',
+                    tension: 0.1
+                }]
+            };
+
+            new Chart(document.getElementById('dailyViewsChart'), {
+                type: 'line',
+                data: viewsData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Show/Hide Statistics
+        function showStatistics() {
+            document.getElementById('statisticsSection').classList.remove('hidden');
+            document.getElementById('settingsSection').classList.add('hidden');
+            initializeCharts();
+        }
+
+        function hideStatistics() {
+            document.getElementById('statisticsSection').classList.add('hidden');
+        }
+
+        // Show/Hide Settings
+        function showSettings() {
+            document.getElementById('settingsSection').classList.remove('hidden');
+            document.getElementById('statisticsSection').classList.add('hidden');
+            loadSettings();
+        }
+
+        function hideSettings() {
+            document.getElementById('settingsSection').classList.add('hidden');
+        }
+
+        // Load and Save Settings
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('settings') || '{}');
+            document.getElementById('siteTitle').value = settings.siteTitle || 'ދިވެހި ނިއުސް';
+            document.getElementById('breakingNewsExpiry').value = settings.breakingNewsExpiry || '24';
+            document.querySelector(`input[name="layout"][value="${settings.layout || 'grid'}"]`).checked = true;
+        }
+
+        document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const settings = {
+                siteTitle: document.getElementById('siteTitle').value,
+                breakingNewsExpiry: document.getElementById('breakingNewsExpiry').value,
+                layout: document.querySelector('input[name="layout"]:checked').value
+            };
+
+            localStorage.setItem('settings', JSON.stringify(settings));
+            alert('ސެޓިންގްސް ސޭވްކުރެވިއްޖެ');
+        });
+
+        // Recent Activity
+        function updateRecentActivity() {
+            const news = JSON.parse(localStorage.getItem('news') || '[]');
+            const ads = JSON.parse(localStorage.getItem('ads') || '[]');
+            
+            const activities = [
+                ...news.map(item => ({
+                    type: 'news',
+                    title: item.title,
+                    date: new Date(item.date)
+                })),
+                ...ads.map(item => ({
+                    type: 'ad',
+                    title: item.title,
+                    date: new Date(item.date)
+                }))
+            ].sort((a, b) => b.date - a.date).slice(0, 5);
+
+            document.getElementById('recentActivityList').innerHTML = activities.map(activity => `
+                <li class="pb-4">
+                    <div class="relative">
+                        <span class="absolute top-4 right-4 -mr-12 h-4 w-4 rounded-full ${activity.type === 'news' ? 'bg-blue-200' : 'bg-green-200'}"></span>
+                        <div class="relative flex space-x-3">
+                            <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4 mr-12">
+                                <div>
+                                    <p class="text-sm text-gray-500">
+                                        ${activity.type === 'news' ? 'އާ ޚަބަރެއް އިތުރުކުރެވުނު: ' : 'އާ އިޝްތިހާރެއް އިތުރުކުރެވުނު: '}
+                                        "${activity.title}"
+                                    </p>
+                                </div>
+                                <div class="text-left text-sm whitespace-nowrap text-gray-500">
+                                    <time datetime="${activity.date.toISOString()}">
+                                        ${Math.round((new Date() - activity.date) / (1000 * 60))} މިނެޓް ކުރިން
+                                    </time>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            `).join('');
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatistics();
+            updateRecentActivity();
+            displayActiveAds();
+            
+            // Initialize event listeners for ads form
+            document.getElementById('adImage')?.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('previewImg').src = e.target.result;
+                        document.getElementById('imagePreview').classList.remove('hidden');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            document.getElementById('addAdForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    title: document.getElementById('adTitle').value,
+                    position: document.getElementById('adPosition').value,
+                    link: document.getElementById('adLink').value,
+                    startDate: document.getElementById('startDate').value,
+                    endDate: document.getElementById('endDate').value,
+                    isActive: document.getElementById('isActive').checked,
+                    image: document.getElementById('previewImg')?.src || '',
+                    date: new Date().toISOString()
+                };
+
+                let ads = JSON.parse(localStorage.getItem('ads') || '[]');
+                ads.unshift(formData);
+                localStorage.setItem('ads', JSON.stringify(ads));
+
+                this.reset();
+                document.getElementById('imagePreview').classList.add('hidden');
+                displayActiveAds();
+                hideAdsForm();
+
+                alert('އިޝްތިހާރު ކާމިޔާބުކަމާއެކު ޝާއިޢުކުރެވިއްޖެ');
+            });
+            
+            // Update statistics every minute
+            setInterval(updateStatistics, 60000);
+            setInterval(updateRecentActivity, 60000);
+        });
+    </script>
+</body>
+</html>
