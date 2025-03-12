@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="dv" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ޚަބަރު - ދިވެހި ނިއުސް</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thaana:wght@100;200;300;400;500;600;700;800;900&family=Noto+Serif+Thaana:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Noto Serif Thaana', 'serif'],
+                        'body': ['Noto Sans Thaana', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-body bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="text-2xl font-bold text-blue-600 font-heading">
+                    <a href="index.html">ދިވެހި ނިއުސް</a>
+                </div>
+                
+                <!-- Navigation Menu -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium">މައި ސަފްހާ</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">ޚަބަރު</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">ކުޅިވަރު</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">ވިޔަފާރި</a>
+                    <a href="admin/login.html" class="text-gray-700 hover:text-blue-600 font-medium">އެޑްމިން</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breaking News Ticker -->
+    <div class="bg-red-600 text-white py-2">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center">
+                <span class="font-heading font-bold ml-2 text-lg">އާ ޚަބަރު:</span>
+                <div class="overflow-hidden relative w-full mx-4" id="news-ticker">
+                    <div class="flex items-center justify-center min-h-[2rem]">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <!-- Article Content -->
+            <div class="md:col-span-9">
+                <article class="bg-white rounded-lg shadow-lg p-6" id="article-content">
+                    <div class="flex items-center justify-center min-h-[300px]">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="md:col-span-3">
+                <!-- Popular News -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                    <h3 class="text-lg font-bold mb-4 font-heading">މަޤްބޫލު ޚަބަރު</h3>
+                    <div id="popular-news">
+                        <div class="flex items-center justify-center min-h-[200px]">
+                            <div class="loading-spinner"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advertisement -->
+                <div class="bg-white rounded-lg shadow-lg p-6" id="ad-section">
+                    <h3 class="text-lg font-bold mb-4 font-heading">އިޝްތިހާރު</h3>
+                    <div class="flex items-center justify-center min-h-[250px]">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- About Section -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4 font-heading">އަހަރެމެންނާ ބެހޭ</h4>
+                    <p class="text-gray-300">ދިވެހިންނަށް އެންމެ ފަހުގެ އަދި އިތުބާރުހުރި ޚަބަރު ފޯރުކޮށްދިނުމަށް މަސައްކަތްކުރާ ނޫސް</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4 font-heading">އަވަސް ލިންކުތައް</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">އަހަރެމެންނާ ބެހޭ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">ގުޅުއްވާ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">ޕްރައިވަސީ ޕޮލިސީ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4 font-heading">ބައިތައް</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">ސިޔާސީ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">ކުޅިވަރު</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">ވިޔަފާރި</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4 font-heading">ސޯޝަލް މީޑިއާ</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-300">&copy; 2024 ދިވެހި ނިއުސް. ހުރިހާ ޙައްޤެއް ރައްކާތެރިކުރެވިފައި</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
