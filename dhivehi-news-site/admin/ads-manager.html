@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="dv" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>އިޝްތިހާރު މެނޭޖްކުރުން - ދިވެހި ނިއުސް</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thaana:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'body': ['Noto Sans Thaana', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-body bg-gray-50">
+    <!-- Admin Header -->
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-gray-900">އިޝްތިހާރު މެނޭޖްކުރުން</h1>
+                <div class="flex items-center space-x-4">
+                    <a href="dashboard.html" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-tachometer-alt ml-2"></i>
+                        ޑޭޝްބޯޑް
+                    </a>
+                    <button class="logout-btn text-red-600 hover:text-red-800">
+                        <i class="fas fa-sign-out-alt ml-2"></i>
+                        ލޮގްއައުޓް
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Add Advertisement Form -->
+        <div class="bg-white shadow rounded-lg p-6">
+            <h2 class="text-xl font-bold mb-6">އާ އިޝްތިހާރެއް އިތުރުކުރުން</h2>
+            <form id="addAdForm" class="space-y-6">
+                <!-- Ad Title -->
+                <div>
+                    <label for="adTitle" class="block text-sm font-medium text-gray-700 mb-2">އިޝްތިހާރުގެ ނަން</label>
+                    <input type="text" id="adTitle" name="adTitle" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- Ad Position -->
+                <div>
+                    <label for="adPosition" class="block text-sm font-medium text-gray-700 mb-2">އިޝްތިހާރުގެ ޕޮޒިޝަން</label>
+                    <select id="adPosition" name="adPosition" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="sidebar">ސައިޑްބާރ</option>
+                        <option value="header">ހެޑަރ</option>
+                        <option value="footer">ފޫޓަރ</option>
+                        <option value="content">ކޮންޓެންޓް ދޭތެރޭ</option>
+                    </select>
+                </div>
+
+                <!-- Ad Image -->
+                <div>
+                    <label for="adImage" class="block text-sm font-medium text-gray-700 mb-2">އިޝްތިހާރުގެ ފޮޓޯ</label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                        <div class="space-y-1 text-center">
+                            <div class="flex text-sm text-gray-600">
+                                <label for="adImage" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                    <span>ފޮޓޯއެއް އަޕްލޯޑްކުރުމަށް ފިތާލާ</span>
+                                    <input id="adImage" name="adImage" type="file" class="sr-only" accept="image/*" required>
+                                </label>
+                            </div>
+                            <p class="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
+                        </div>
+                    </div>
+                    <div id="imagePreview" class="mt-4 hidden">
+                        <img id="previewImg" src="" alt="Preview" class="max-h-48 rounded">
+                    </div>
+                </div>
+
+                <!-- Ad Link -->
+                <div>
+                    <label for="adLink" class="block text-sm font-medium text-gray-700 mb-2">އިޝްތިހާރުގެ ލިންކް</label>
+                    <input type="url" id="adLink" name="adLink" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="https://example.com">
+                </div>
+
+                <!-- Start and End Dates -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="startDate" class="block text-sm font-medium text-gray-700 mb-2">ފެށޭ ތާރީޚް</label>
+                        <input type="date" id="startDate" name="startDate" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="endDate" class="block text-sm font-medium text-gray-700 mb-2">ނިމޭ ތާރީޚް</label>
+                        <input type="date" id="endDate" name="endDate" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+
+                <!-- Active Status -->
+                <div class="flex items-center">
+                    <input type="checkbox" id="isActive" name="isActive" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="isActive" class="mr-2 block text-sm text-gray-900">އެކްޓިވް އިޝްތިހާރެއްގެ ގޮތުގައި ދެއްކުން</label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        އިޝްތިހާރު ޝާއިޢުކުރުން
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Active Advertisements List -->
+        <div class="mt-8 bg-white shadow rounded-lg p-6">
+            <h2 class="text-xl font-bold mb-6">އެކްޓިވް އިޝްތިހާރުތައް</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">އިޝްތިހާރުގެ ނަން</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">ޕޮޒިޝަން</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">ފެށޭ ތާރީޚް</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">ނިމޭ ތާރީޚް</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">ސްޓޭޓަސް</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">އެކްޝަން</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="activeAdsList">
+                        <!-- Ads will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Auth Script -->
+    <script src="../assets/js/auth.js"></script>
+
+    <!-- Ads Manager Script -->
+    <script>
+        // Image preview functionality
+        document.getElementById('adImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImg').src = e.target.result;
+                    document.getElementById('imagePreview').classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form submission
+        document.getElementById('addAdForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                title: document.getElementById('adTitle').value,
+                position: document.getElementById('adPosition').value,
+                link: document.getElementById('adLink').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value,
+                isActive: document.getElementById('isActive').checked,
+                image: document.getElementById('previewImg').src,
+                date: new Date().toISOString()
+            };
+
+            // Get existing ads from localStorage or initialize empty array
+            let ads = JSON.parse(localStorage.getItem('ads') || '[]');
+            
+            // Add new ad to array
+            ads.unshift(formData);
+            
+            // Save back to localStorage
+            localStorage.setItem('ads', JSON.stringify(ads));
+
+            // Reset form
+            e.target.reset();
+            document.getElementById('imagePreview').classList.add('hidden');
+
+            // Refresh ads list
+            displayActiveAds();
+
+            // Show success message
+            alert('އިޝްތިހާރު ކާމިޔާބުކަމާއެކު ޝާއިޢުކުރެވިއްޖެ');
+        });
+
+        // Display active ads
+        function displayActiveAds() {
+            const ads = JSON.parse(localStorage.getItem('ads') || '[]');
+            const tbody = document.getElementById('activeAdsList');
+            tbody.innerHTML = ads.map((item, index) => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.title}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.position}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        ${new Date(item.startDate).toLocaleDateString('dv-MV')}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        ${new Date(item.endDate).toLocaleDateString('dv-MV')}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${item.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}">
+                            ${item.isActive ? 'އެކްޓިވް' : 'އިންއެކްޓިވް'}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button onclick="editAd(${index})" class="text-blue-600 hover:text-blue-900 ml-3">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="deleteAd(${index})" class="text-red-600 hover:text-red-900">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Edit ad
+        function editAd(index) {
+            const ads = JSON.parse(localStorage.getItem('ads') || '[]');
+            const item = ads[index];
+            
+            document.getElementById('adTitle').value = item.title;
+            document.getElementById('adPosition').value = item.position;
+            document.getElementById('adLink').value = item.link;
+            document.getElementById('startDate').value = item.startDate;
+            document.getElementById('endDate').value = item.endDate;
+            document.getElementById('isActive').checked = item.isActive;
+            
+            if (item.image) {
+                document.getElementById('previewImg').src = item.image;
+                document.getElementById('imagePreview').classList.remove('hidden');
+            }
+
+            // Remove the item from array
+            ads.splice(index, 1);
+            localStorage.setItem('ads', JSON.stringify(ads));
+            displayActiveAds();
+        }
+
+        // Delete ad
+        function deleteAd(index) {
+            if (confirm('މި އިޝްތިހާރު ފޮހެލަން ބޭނުންތޯ؟')) {
+                const ads = JSON.parse(localStorage.getItem('ads') || '[]');
+                ads.splice(index, 1);
+                localStorage.setItem('ads', JSON.stringify(ads));
+                displayActiveAds();
+            }
+        }
+
+        // Initial load
+        displayActiveAds();
+    </script>
+</body>
+</html>
